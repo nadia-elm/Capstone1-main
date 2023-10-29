@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">Your Favorite Cocktails</h1>
+  {% if favorites|length > 0 %}
+  <div class="row">
+    {% for favorite in favorites %}
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <img
+          src="{{ favorite.cocktail_image}}"
+          class="card-img-top"
+          alt="{{ favorite.cocktail_name }}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ favorite.cocktail_name}}</h5>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>
+    You have no favorite cocktails yet.
+    <a href="{{ url_for('home') }}">Discover some now!</a>
+  </p>
+  {% endif %}
+</div>
+{% endblock %}

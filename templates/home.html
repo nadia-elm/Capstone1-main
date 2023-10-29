@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">Cocktails</h1>
+  <div class="row">
+    {% for cocktail in cocktails %}
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <img
+          src="{{ cocktail.strDrinkThumb }}"
+          class="card-img-top"
+          alt="{{ cocktail.strDrink }}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ cocktail.strDrink }}</h5>
+          <!-- <form
+            action="{{ url_for('add_favorite', cocktail_id=cocktail.idDrink, cocktail_name=cocktail.strDrink) }}"
+            method="post"
+          >
+            <button class="btn btn-primary">Add to Favorites</button>
+          </form> -->
+          <form action="{{ url_for('add_favorite') }}" method="post">
+            <input
+              type="hidden"
+              name="cocktail_id"
+              value="{{ cocktail.idDrink }}"
+            />
+            <input
+              type="hidden"
+              name="cocktail_name"
+              value="{{ cocktail.strDrink }}"
+            />
+            <input
+              type="hidden"
+              name="cocktail_image"
+              value="{{ cocktail.strDrinkThumb }}"
+            />
+
+            <button class="btn btn-primary">Add to Favorites</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Favorite Cocktails{% endblock %}</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg nav navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Favorite Cocktails</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+          </li>
+
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="{{ url_for('favorites') }}">favorites</a>
+          </li>
+          {% if 'user_id' in session %}
+
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="#">Welcome, {{ session['username'] }}</a>
+          </li>
+
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          </li>
+
+          {% else %}
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+          </li>
+          <li class="nav-item mr-4">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          </li>
+
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category,message in messages %}
+    <div class="alert alert-{{ category}}">{{ message }}</div>
+    {% endfor %} {% endif %} {% endwith %}
+
+    <div class="container">{% block content %}{% endblock %}</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
